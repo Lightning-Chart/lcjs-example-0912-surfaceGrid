@@ -26,6 +26,7 @@ const HEATMAP_COLUMNS = 1024
 const HEATMAP_ROWS = 1024
 
 // Initialize empty Dashboard and charts.
+// NOTE: Using `Dashboard` is no longer recommended for new applications. Find latest recommendations here: https://lightningchart.com/js-charts/docs/basic-topics/grouping-charts/
 const dashboard = lightningChart()
     .Dashboard({
         numberOfColumns: 2,
