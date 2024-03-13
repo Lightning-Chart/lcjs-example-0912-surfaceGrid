@@ -31,7 +31,7 @@ const dashboard = lightningChart()
     .Dashboard({
         numberOfColumns: 2,
         numberOfRows: 1,
-        theme: Themes[new URLSearchParams(window.location.search).get('theme') || 'darkGold'] || undefined,
+        theme: Themes[new URLSearchParams(window.location.search).get('theme') || 'darkGold'] || undefined
     })
     .setColumnWidth(0, 1.0)
     .setColumnWidth(1, 1.8)
