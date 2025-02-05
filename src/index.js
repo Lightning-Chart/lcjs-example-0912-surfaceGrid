@@ -94,9 +94,9 @@ createWaterDropDataGenerator()
             .setOrigin(UIOrigins.RightTop)
             .setMargin({ top: 40, right: 8 })
             .setDraggingMode(UIDraggingModes.notDraggable)
-        selectorColorShadingStyle.onSwitch((_, state) => {
-            surfaceSeries3D.setColorShadingStyle(state ? new ColorShadingStyles.Phong() : new ColorShadingStyles.Simple())
-            selectorColorShadingStyle.setText(`Color shading style: ${state ? 'Phong' : 'Simple'}`)
+        selectorColorShadingStyle.addEventListener('switch', (event) => {
+            surfaceSeries3D.setColorShadingStyle(event.state ? new ColorShadingStyles.Phong() : new ColorShadingStyles.Simple())
+            selectorColorShadingStyle.setText(`Color shading style: ${event.state ? 'Phong' : 'Simple'}`)
         })
         selectorColorShadingStyle.setOn(false).setText(`Color shading style: Simple`)
 
