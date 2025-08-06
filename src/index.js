@@ -13,11 +13,11 @@ const {
     PalettedFill,
     emptyLine,
     ColorShadingStyles,
-    LegendBoxBuilders,
     UIElementBuilders,
     UIOrigins,
     UIDraggingModes,
     regularColorSteps,
+    LegendPosition,
     Themes,
 } = lcjs
 const { createWaterDropDataGenerator } = xydata
@@ -42,6 +42,7 @@ const chart2D = dashboard
     .createChartXY({
         columnIndex: 0,
         rowIndex: 0,
+        legend: { visible: false },
     })
     .setTitle('Generating test data ...')
 
@@ -49,6 +50,9 @@ const chart3D = dashboard
     .createChart3D({
         columnIndex: 1,
         rowIndex: 0,
+        legend: {
+            position: LegendPosition.BottomCenter,
+        }
     })
     .setTitle('Generating test data ...')
 
@@ -86,7 +90,7 @@ createWaterDropDataGenerator()
             .setFillStyle(new PalettedFill({ lut, lookUpProperty: 'y' }))
             .setWireframeStyle(emptyLine)
             .invalidateHeightMap(data)
-
+        
         // Add selector to see difference between Simple and Phong 3D color shading style in Surface grid series.
         const selectorColorShadingStyle = chart3D
             .addUIElement(UIElementBuilders.CheckBox)
@@ -100,6 +104,4 @@ createWaterDropDataGenerator()
         })
         selectorColorShadingStyle.setOn(false).setText(`Color shading style: Simple`)
 
-        // Add legend with color look up table to chart.
-        const legend = chart3D.addLegendBox(LegendBoxBuilders.HorizontalLegendBox).add(chart2D).add(chart3D)
     })
