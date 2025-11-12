@@ -18,6 +18,7 @@ const {
     UIDraggingModes,
     regularColorSteps,
     LegendPosition,
+    contoursFromLUT,
     Themes,
 } = lcjs
 const { createWaterDropDataGenerator } = xydata
@@ -26,7 +27,7 @@ const HEATMAP_COLUMNS = 1024
 const HEATMAP_ROWS = 1024
 
 // Initialize empty Dashboard and charts.
-// NOTE: Using `Dashboard` is no longer recommended for new applications. Find latest recommendations here: https://lightningchart.com/js-charts/docs/basic-topics/grouping-charts/
+// NOTE: Using `Dashboard` is no longer recommended for new applications. Find latest recommendations here: https://lightningchart.com/js-charts/docs/more-guides/grouping-charts/
 const dashboard = lightningChart({
             resourcesBaseUrl: new URL(document.head.baseURI).origin + new URL(document.head.baseURI).pathname + 'resources/',
         })
@@ -52,7 +53,7 @@ const chart3D = dashboard
         rowIndex: 0,
         legend: {
             position: LegendPosition.BottomCenter,
-        }
+        },
     })
     .setTitle('Generating test data ...')
 
@@ -90,7 +91,11 @@ createWaterDropDataGenerator()
             .setFillStyle(new PalettedFill({ lut, lookUpProperty: 'y' }))
             .setWireframeStyle(emptyLine)
             .invalidateHeightMap(data)
-        
+            .setContours({
+                valueSource: 'y',
+                ...contoursFromLUT(lut),
+            })
+
         // Add selector to see difference between Simple and Phong 3D color shading style in Surface grid series.
         const selectorColorShadingStyle = chart3D
             .addUIElement(UIElementBuilders.CheckBox)
@@ -103,5 +108,4 @@ createWaterDropDataGenerator()
             selectorColorShadingStyle.setText(`Color shading style: ${event.state ? 'Phong' : 'Simple'}`)
         })
         selectorColorShadingStyle.setOn(false).setText(`Color shading style: Simple`)
-
     })
